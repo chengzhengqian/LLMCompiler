@@ -1,0 +1,1 @@
+- Replaced the term "spin-orbital" throughout the SPEC with the generic "mode" to reflect that the basis is applicable to any fermionic system, not only spin-½. The physical meaning of a mode (spin-orbital, spatial orbital, etc.) is left to the caller and is not encoded in the basis.

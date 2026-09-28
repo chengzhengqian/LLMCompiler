@@ -1,0 +1,6 @@
+- **N interpreted as spatial orbitals (total modes = 2N):** The human input mentions N↑ and N↓, which only make sense with a spin structure. I chose N = number of spatial sites, so the state has 2N bits (N up + N down). An alternative would be N = total modes with no spin split, but then N↑/N↓ are ambiguous.
+- **Spin-up occupies the lower N bits, spin-down the upper N bits:** This makes extraction via `s & mask` and `s >> N` natural and matches the convention of writing up-orbitals first.
+- **Lexicographic order on sorted 1-indexed occupied-orbital tuples, spin-up as outer index:** This gives a deterministic, easily verifiable ordering. An alternative (numerical order on the full UInt) would mix spins and be harder to reason about for the consumers.
+- **1-based public indices (Julia convention):** `state_at` and `index_of` use 1-based indexing, consistent with Julia's array conventions and the downstream `op-matrix` consumer.
+- **`index_of` throws `ArgumentError` for invalid states rather than returning a sentinel:** Avoids silent errors; the consumer gets an immediate signal that a bug occurred (e.g., operator applied to wrong sector).
+- **Nup and Ndown are mandatory (no default):** The unit is designed for fixed-sector use. Enumerating all 2^(2N) states is a different (and much larger) problem; requiring explicit values keeps the interface honest.

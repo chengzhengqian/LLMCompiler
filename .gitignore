@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Environments
+.venv/
+.env
+
+# Interrupted atomic writes from ic
+*.tmp
+
+# Emacs
+*~
+\#*\#
+.#*
+
+# OS
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+
+# ic round records: keep the log, skip bulky diagnostics
+.build/**/stream.json
+.build/**/thinking.md

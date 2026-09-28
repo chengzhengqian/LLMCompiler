@@ -1,0 +1,17 @@
+# IntentCompiler project config for the second-quantization example.
+
+language = "julia"
+
+# Named endpoints. Each is an Ollama server (here: local ends of SSH port
+# forwards) plus the model to use on it. Adjust ports to match your forwards.
+[endpoints.littleisland]
+url = "http://localhost:11434"
+model = "qwen3.8:27b"
+
+[endpoints.hudson]
+url = "http://localhost:11435"
+model = "qwen3:8b"
+
+# Default endpoint per stage; override on the command line with -e NAME.
+[stages]
+plan = "littleisland"

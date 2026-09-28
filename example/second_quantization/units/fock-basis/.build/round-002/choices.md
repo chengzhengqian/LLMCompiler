@@ -1,0 +1,4 @@
+- Renamed the orbital-count parameter from `N` to `L` to match the user's notation "L spin-orbital" and avoid confusion with the particle count `N`.
+- Removed `Nup` and `Ndown` parameters; the basis is now indexed only by total particle number `N` across `L` spin-orbitals.
+- Simplified the bit encoding to a single contiguous block of L bits (bit l−1 ↔ spin-orbital l) rather than two separate halves.
+- Simplified the ordering to a single lexicographic rank over C(L, N) combinations (no composite up_rank/down_rank formula).

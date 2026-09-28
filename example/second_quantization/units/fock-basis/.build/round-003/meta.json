@@ -1,0 +1,23 @@
+{
+  "stage": "plan",
+  "round": 3,
+  "parent": 2,
+  "endpoint": "littleisland",
+  "model": "qwen3.8:27b",
+  "url": "http://localhost:11434",
+  "template": "ic:templates/plan.md",
+  "inputs": {
+    "fock-basis/input.md": "69b3f5ce4e4f",
+    "fock-basis/intent.md": "0ad94a884b09",
+    "fock-basis/spec.md": "5aafdb118b3f"
+  },
+  "status": "ok",
+  "seconds": 83.2,
+  "eval_count": 2464,
+  "tokens_per_second": 30.98,
+  "prompt_tokens": 2392,
+  "outputs": {
+    "intent.md": "6cd16d961dc9",
+    "spec.md": "55325e894923"
+  }
+}
