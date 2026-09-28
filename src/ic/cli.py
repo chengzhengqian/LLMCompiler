@@ -4,7 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import config, plan
+from . import config, plan, repl
 from .llm import list_models
 from .unit import load_unit
 
@@ -41,6 +41,10 @@ def cmd_clean(cfg, args) -> int:
     return plan.clean(load_unit(cfg.root, args.unit), yes=args.yes)
 
 
+def cmd_repl(cfg, args) -> int:
+    return repl.run(cfg, getattr(args, "unit", None))
+
+
 def cmd_placeholder(cfg, args) -> int:
     print(f"{args.stage} {load_unit(cfg.root, args.unit).name}: not implemented yet")
     return 0
@@ -50,7 +54,13 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="ic", description="IntentCompiler")
     parser.add_argument("--root", type=Path, default=None,
                         help="project root containing ic.toml (default: search upward)")
-    sub = parser.add_subparsers(dest="stage", required=True)
+    parser.set_defaults(func=cmd_repl)
+    sub = parser.add_subparsers(dest="stage", metavar="COMMAND",
+                                description="with no command, start the interactive shell")
+
+    p = sub.add_parser("repl", help="interactive shell (the default when no command is given)")
+    p.add_argument("unit", nargs="?", help="unit to focus on at start")
+    p.set_defaults(func=cmd_repl)
 
     p = sub.add_parser("endpoints", help="list endpoints and check they respond")
     p.set_defaults(func=cmd_endpoints)

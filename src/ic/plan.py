@@ -139,8 +139,31 @@ def status(unit: Unit) -> int:
         q = round_dir(unit, last[0]) / "questions.md"
         if q.is_file():
             print(f"\nopen questions from round {last[0]:03d}:\n{q.read_text().rstrip()}")
-    print(f"\n{INPUT} is empty — write your input there to run a round.")
+    if not unit.has(INPUT) or not unit.read(INPUT).strip():
+        print(f"\n{INPUT} is empty — write your input there to run a round.")
     return 0
+
+
+def brief(unit: Unit) -> str:
+    """One-line state of a unit, for listings."""
+    try:
+        state = plan_state(unit)
+    except FileNotFoundError:
+        return "broken: intent.md/spec.md out of pair"
+    nums = rounds(unit)
+    parts = [f"{len(nums)} round{'' if len(nums) == 1 else 's'}",
+             "plan" if state == "present" else "no plan"]
+    acc, last = accepted(unit), last_successful_round(unit)
+    if acc:
+        parts.append(f"accepted {acc['round']:03d}"
+                     + ("" if last and acc["round"] == last[0] else " (stale)"))
+    if unit.has(INPUT) and unit.read(INPUT).strip():
+        parts.append("input pending")
+    if hand_edited(unit):
+        parts.append("hand-edited")
+    if last and (round_dir(unit, last[0]) / "questions.md").is_file():
+        parts.append("open questions")
+    return " · ".join(parts)
 
 
 def run_round(cfg: Config, unit: Unit, endpoint: Endpoint,

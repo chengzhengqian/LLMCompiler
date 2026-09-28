@@ -22,12 +22,33 @@ The human contribution is exactly the ordered log of archived inputs.
 
 ## Commands
 
+    ic                        interactive shell (see below); also: ic repl [unit]
     ic plan <unit>            run a round if input.md has content, else show status
     ic plan <unit> --accept   mark the current plan as usable by dependents
     ic plan <unit> -n         dry run: print the assembled prompt
     ic plan <unit> -e NAME    use a specific endpoint from ic.toml
     ic clean <unit>           remove plan and history; keep input.md
     ic endpoints              check configured Ollama endpoints
+
+## Interactive shell
+
+`ic` with no command opens a shell that keeps one unit in focus, so viewing,
+editing and running rounds need no paths or unit names:
+
+    ic> units                        list units and their state
+    ic> use fock-basis               focus (tab-completes unit names)
+    ic:fock-basis> edit              open input.md in $VISUAL / $EDITOR
+    ic:fock-basis> add Also allow N = 0.   append a line to input.md
+    ic:fock-basis> plan              run a round (-n dry run, -e NAME endpoint)
+    ic:fock-basis> spec              view spec.md   (also: intent, input, show)
+    ic:fock-basis> questions         open questions from the latest round
+    ic:fock-basis> rounds            one line per round; `show archived 2` etc.
+    ic:fock-basis> accept
+    ic:fock-basis> endpoint hudson   use another endpoint for this session
+
+`help` lists everything; `help <command>` gives details. Rounds run from the
+shell are recorded exactly like `ic plan <unit>`. An empty line does nothing
+(it never repeats the last command). Long files go through `$PAGER`.
 
 ## Unit layout
 
@@ -51,6 +72,7 @@ The human contribution is exactly the ordered log of archived inputs.
 
     uv sync
     uv run ic --help
+    uv run pytest          # offline; uses a fake Ollama server
 
 ## Status
 
