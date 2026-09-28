@@ -49,6 +49,7 @@ editing and running rounds need no paths or unit names:
 `help` lists everything; `help <command>` gives details. Rounds run from the
 shell are recorded exactly like `ic plan <unit>`. An empty line does nothing
 (it never repeats the last command). Long files go through `$PAGER`.
+Full guide: [docs/repl.md](docs/repl.md).
 
 ## Unit layout
 
@@ -65,6 +66,7 @@ shell are recorded exactly like `ic plan <unit>`. An empty line does nothing
 
     src/ic/             compiler source
     src/ic/templates/   default prompt templates
+    docs/               guides (docs/repl.md: the interactive shell)
     example/            example projects, each with its own ic.toml
     tests/
 
