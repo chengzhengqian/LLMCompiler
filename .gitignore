@@ -25,5 +25,8 @@ Thumbs.db
 
 
 # ic round records: keep the log, skip bulky diagnostics
-.build/**/stream.json
-.build/**/thinking.md
+**/.build/**/stream.json
+**/.build/**/thinking.md
+
+# ic repl history
+.ic_history
